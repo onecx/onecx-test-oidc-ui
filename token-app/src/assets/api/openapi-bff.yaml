@@ -1,0 +1,70 @@
+openapi: 3.0.3
+info:
+  title: onecx-token-app-bff
+  description: Backend-For-Frontend (BFF) services for onecx-token-app. This API provides endpoints to manage token-app items.
+  version: 1.0.0
+servers:
+  - url: http://onecx-token-app-bff:8080/
+tags:
+  - name: tokenTable
+    description: Managing TokenTable items
+paths: {}
+components:
+  schemas:
+    ProblemDetailResponse:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        detail:
+          type: string
+        params:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemDetailParam'
+        invalidParams:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemDetailInvalidParam'
+    ProblemDetailParam:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    ProblemDetailInvalidParam:
+      type: object
+      properties:
+        name:
+          type: string
+        message:
+          type: string
+    OffsetDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50-04:00
+    TokenTable:
+      type: object
+      required:
+        - id
+      properties:
+        creationDate:
+          $ref: '#/components/schemas/OffsetDateTime'
+        creationUser:
+          type: string
+          readOnly: true
+        modificationDate:
+          $ref: '#/components/schemas/OffsetDateTime'
+        modificationUser:
+          type: string
+          readOnly: true
+        modificationCount:
+          type: integer
+          format: int32
+        id:
+          type: string
+          readOnly: true
+        changeMe:
+          type: string
+        # "ACTION E: Add entity properties"

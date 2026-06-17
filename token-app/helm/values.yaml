@@ -1,0 +1,37 @@
+app:
+  name: ui
+  image:
+    repository: onecx-apps/onecx-token-app-ui
+  routing:
+    enabled: true
+    path: /mfe/tokenApp/
+  operator:
+    microfrontend:
+      enabled: true
+      specs:
+        main:
+          exposedModule: ./OneCXTokenAppModule
+          description: OneCX TokenApp UI
+          note: OneCX TokenApp UI module auto import via MF operator
+          type: MODULE
+          technology: WEBCOMPONENTMODULE
+          remoteName: token-app
+          tagName: ocx-token-app-component
+    microservice:
+      spec:
+        name: OneCX TokenApp UI
+        description: OneCX TokenApp Frontend
+    permission:
+      enabled: true
+      spec:
+        permissions:
+          TOKEN_TABLE:
+            CREATE: Create TokenTable item
+            EDIT: Edit TokenTable item
+            DELETE: Delete TokenTable item
+            SEARCH: Search TokenTable items
+            VIEW: View TokenTable item details
+            IMPORT: Import TokenTable items
+            EXPORT: Export TokenTable items
+            BACK: Navigate back in details of TokenTable item
+            # "ACTION P: Adjust permissions for the entity"

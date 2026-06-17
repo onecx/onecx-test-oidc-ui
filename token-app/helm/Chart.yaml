@@ -1,0 +1,17 @@
+apiVersion: v2
+name: token-app
+version: 0.0.0
+description: token-app UI
+home: https://github.com/onecx-apps/token-app
+keywords:
+  - token-app
+sources:
+  - https://github.com/onecx-apps/token-app
+maintainers:
+  - name: # ACTION: add name of maintainer
+    email: # ACTION: add email of maintainer
+dependencies:
+  - name: helm-angular-app
+    version: ^0
+    repository: oci://ghcr.io/onecx/charts
+    alias: app

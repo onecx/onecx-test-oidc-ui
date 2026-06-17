@@ -1,0 +1,38 @@
+const { ModifyEntryPlugin } = require('@angular-architects/module-federation/src/utils/modify-entry-plugin')
+const { share, withModuleFederationPlugin } = require('@angular-architects/module-federation/webpack')
+const { getOneCXSharedRecommendations } = require('@onecx/accelerator')
+const { dependencies } = require('./package.json')
+
+const sharedEntries = {}
+for (const libName of Object.keys(dependencies)) {
+  const result = getOneCXSharedRecommendations(libName, { requiredVersion: 'auto', includeSecondaries: true })
+  if (result !== false) {
+    sharedEntries[libName] = result
+  }
+}
+
+const config = withModuleFederationPlugin({
+  name: 'onecx-token-app-ui',
+  filename: 'remoteEntry.js',
+  exposes: {
+    './OneCXTokenAppModule': './src/main.ts'
+  },
+  shared: share(sharedEntries)
+})
+
+const plugins = config.plugins.filter((plugin) => !(plugin instanceof ModifyEntryPlugin))
+
+module.exports = {
+  ...config,
+  plugins,
+  output: { uniqueName: 'onecx-token-app-ui', publicPath: 'auto' },
+  experiments: { ...config.experiments, topLevelAwait: true },
+  optimization: { runtimeChunk: false, splitChunks: false },
+  module: {
+    parser: {
+      javascript: {
+        importMeta: false
+      }
+    }
+  }
+}
