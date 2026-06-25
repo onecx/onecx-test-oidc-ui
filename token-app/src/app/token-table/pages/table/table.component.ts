@@ -6,6 +6,8 @@ import { selectTableViewModel } from './table.selectors'
 import { TableViewModel } from './table.viewmodel'
 import { AuthProxyService } from '@onecx/angular-auth'
 import { ColumnType, DataAction, DataTableColumn, Row } from '@onecx/angular-accelerator'
+import { isEqualCheck } from '@ngrx/store/src/selector'
+import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-table',
@@ -16,12 +18,14 @@ import { ColumnType, DataAction, DataTableColumn, Row } from '@onecx/angular-acc
 export class TableComponent {
   viewModel$: Observable<TableViewModel>
 
+  translateService = inject(TranslateService)
   authService = inject(AuthProxyService);
+  
   headerValues = this.authService.getHeaderValues();
 
   tableColumns: DataTableColumn[] = [
-    {id: "key", columnType: ColumnType.STRING, nameKey: "Key", sortable: false},
-    {id:"token", columnType: ColumnType.STRING, nameKey: "Token", sortable: false}
+    {id: "key", columnType: ColumnType.STRING, nameKey: this.translateService.instant("TABLE_COLUMNS.KEY"), sortable: false},
+    {id:"token", columnType: ColumnType.STRING, nameKey: this.translateService.instant("TABLE_COLUMNS.TOKEN"), sortable: false}
   ]
   tableRows: Row[] = this.formatHeaderValuesForTable(this.headerValues);
 
@@ -30,15 +34,17 @@ export class TableComponent {
   }
 
   formatHeaderValuesForTable(headerValues: Record<string, string>): Row[] {
-    let idCounter = 0;
     let result: Row[] = [];
     Object.entries(headerValues).forEach(([key, value]) => {
       result.push({
-      id: idCounter++,
+      id: key,
       key,
       token: value})
     });
     return result;
   }
 
+  formatData(data: any): string {
+    return JSON.stringify(data);
+  }
 }
