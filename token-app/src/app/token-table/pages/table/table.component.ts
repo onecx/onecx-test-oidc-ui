@@ -24,8 +24,8 @@ export class TableComponent {
   headerValues = this.authService.getHeaderValues();
 
   tableColumns: DataTableColumn[] = [
-    {id: "key", columnType: ColumnType.STRING, nameKey: this.translateService.instant("TABLE_COLUMNS.KEY"), sortable: false},
-    {id:"token", columnType: ColumnType.STRING, nameKey: this.translateService.instant("TABLE_COLUMNS.TOKEN"), sortable: false}
+    {id: "key", columnType: ColumnType.STRING, nameKey: "TABLE_COLUMNS.KEY", sortable: false},
+    {id:"token", columnType: ColumnType.STRING, nameKey: "TABLE_COLUMNS.TOKEN", sortable: false}
   ]
   tableRows: Row[] = this.formatHeaderValuesForTable(this.headerValues);
 
