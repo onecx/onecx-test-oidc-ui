@@ -1,0 +1,140 @@
+{
+  "name": "token-app",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "./src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/token-app",
+        "index": "./src/index.html",
+        "polyfills": "src/polyfills.ts",
+        "tsConfig": "tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "src/favicon.ico",
+          "src/assets",
+          {
+            "glob": "**/*",
+            "input": "public"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@onecx/angular-accelerator/assets/",
+            "output": "/onecx-angular-accelerator/assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@onecx/angular-utils/assets/",
+            "output": "/onecx-angular-utils/assets/"
+          },
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@onecx/shell-core/assets/",
+            "output": "/onecx-shell-core/assets/"
+          }
+        ],
+        "styles": [
+          {
+            "input": "src/styles.scss",
+            "bundleName": "styles",
+            "inject": true
+          }
+        ],
+        "scripts": ["node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"],
+        "customWebpackConfig": {
+          "path": "webpack.config.js"
+        },
+        "main": "./src/main.ts"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "1mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "8kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ],
+          "customWebpackConfig": {
+            "path": "webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "token-app:build:production"
+        },
+        "development": {
+          "buildTarget": "token-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "disableHostCheck": true,
+        "host": "0.0.0.0",
+        "publicHost": "http://localhost:4200",
+        "proxyConfig": "proxy.conf.js",
+        "headers": {
+          "Allow": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "token-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["./src"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
+      "options": {
+        "jestConfig": "jest.config.ts",
+        "coverage": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "token-app:build",
+        "staticFilePath": "dist/token-app/browser",
+        "spa": true
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "TABLE":  {
+    "HEADER": "Authentifizierungs-Token Tabelle",
+    "DESCRIPTION": "Diese Tabelle zeigt alle Authentifizierungs-Tokens des aktuellen Nutzers an."
+  },
+  "TABLE_COLUMNS": {
+    "KEY": "Key",
+    "TOKEN": "Token"
+  }
+}

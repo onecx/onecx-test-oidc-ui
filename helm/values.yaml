@@ -1,0 +1,23 @@
+app:
+  name: ui
+  image:
+    repository: onecx/onecx-test-oidc-ui
+  routing:
+    enabled: true
+    path: /mfe/test-oidc/
+  operator:
+    microfrontend:
+      enabled: true
+      specs:
+        main:
+          exposedModule: ./OneCXTokenAppModule
+          description: OneCX TokenApp UI
+          note: OneCX TokenApp UI module auto import via MF operator
+          type: MODULE
+          technology: WEBCOMPONENTMODULE
+          remoteName: token-app
+          tagName: ocx-token-app-component
+    microservice:
+      spec:
+        name: OneCX TokenApp UI
+        description: OneCX TokenApp Frontend
