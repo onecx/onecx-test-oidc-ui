@@ -1,7 +1,7 @@
 {
   "TABLE": {
     "HEADER": "Auth-Token Table",
-    "DESCRIPTION": "This Table shows all Authentification-Token of the currently logged in user."
+    "DESCRIPTION": "This table shows all authentication tokens of the currently logged in user."
   },
   "TABLE_COLUMNS": {
     "KEY": "Key",
