@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core'
 import { Store } from '@ngrx/store'
+import { TranslateService } from '@ngx-translate/core'
 import { Observable } from 'rxjs'
+
+import { AuthProxyService } from '@onecx/angular-auth'
+import { ColumnType, DataTableColumn, Row } from '@onecx/angular-accelerator'
 
 import { selectTableViewModel } from './table.selectors'
 import { TableViewModel } from './table.viewmodel'
-import { AuthProxyService } from '@onecx/angular-auth'
-import { ColumnType, DataAction, DataTableColumn, Row } from '@onecx/angular-accelerator'
-import { isEqualCheck } from '@ngrx/store/src/selector'
-import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-table',
@@ -34,17 +34,18 @@ export class TableComponent {
   }
 
   formatHeaderValuesForTable(headerValues: Record<string, string>): Row[] {
-    let result: Row[] = [];
+    const result: Row[] = [];
     Object.entries(headerValues).forEach(([key, value]) => {
       result.push({
-      id: key,
-      key,
-      token: value})
-    });
+        id: key,
+        key,
+        token: value
+      })
+    })
     return result;
   }
 
-  formatData(data: any): string {
+  formatData(data: unknown): string {
     return JSON.stringify(data);
   }
 }
