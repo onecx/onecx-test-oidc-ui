@@ -1,5 +1,5 @@
-import { TableState } from './pages/table/table.state' /* eslint-disable  @typescript-eslint/no-empty-interface */
-/* eslint-disable  @typescript-eslint/no-empty-object-type */
+import { TableState } from './pages/table/table.state'
+
 export interface TokenTableState {
   table: TableState
 }

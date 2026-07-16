@@ -1,1 +1,1 @@
-export interface TableState {}
+export type TableState = Record<string, never>

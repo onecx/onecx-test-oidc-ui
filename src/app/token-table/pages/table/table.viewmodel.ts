@@ -1,1 +1,1 @@
-export interface TableViewModel {}
+export type TableViewModel = Record<string, never>
