@@ -9,7 +9,6 @@ COPY dist/token-app/ $DIR_HTML
 #ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF
 
 # Application environments default values
-ENV BFF_URL http://token-app-bff:8080/
 ENV APP_BASE_HREF /
 
 RUN chmod 775 -R "$DIR_HTML"/assets
